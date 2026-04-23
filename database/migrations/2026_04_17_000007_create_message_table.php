@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('content');
             $table->foreignId('sender_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('chat_id')->constrained('chat')->cascadeOnDelete();
+            $table->foreignId('chat_id')->constrained('chats')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('message');
+        Schema::dropIfExists('messages');
     }
 };

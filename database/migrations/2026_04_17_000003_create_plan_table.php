@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('plan', function (Blueprint $table) {
+        Schema::create('plans', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->default('Unnamed Plan');
             $table->date('irrigation_date');
             $table->date('fertilization_date');
             $table->text('note')->nullable();
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('plan');
+        Schema::dropIfExists('plans');
     }
 };

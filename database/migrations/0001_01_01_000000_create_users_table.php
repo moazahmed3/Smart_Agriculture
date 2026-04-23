@@ -16,11 +16,13 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
+            $table->string('handle')->nullable()->unique()->index();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('phone')->nullable();
             $table->string('img')->nullable();
             $table->string('role')->nullable();
+            $table->string('google_id')->nullable()->unique();
             $table->foreignId('engineer_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->rememberToken();
             $table->timestamps();

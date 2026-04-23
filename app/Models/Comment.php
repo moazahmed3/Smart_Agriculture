@@ -10,7 +10,7 @@ class Comment extends Model
 {
     use HasFactory;
 
-    protected $table = 'comment';
+    protected $table = 'comments';
 
     protected $fillable = [
         'name',

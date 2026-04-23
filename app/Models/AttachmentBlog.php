@@ -10,7 +10,7 @@ class AttachmentBlog extends Model
 {
     use HasFactory;
 
-    protected $table = 'attachments_blog';
+    protected $table = 'attachment_blogs';
 
     protected $fillable = [
         'name',

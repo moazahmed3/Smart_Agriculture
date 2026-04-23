@@ -10,7 +10,7 @@ class React extends Model
 {
     use HasFactory;
 
-    protected $table = 'react';
+    protected $table = 'reacts';
 
     protected $fillable = [
         'is_like',

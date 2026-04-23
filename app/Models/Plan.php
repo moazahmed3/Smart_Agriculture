@@ -11,7 +11,7 @@ class Plan extends Model
 {
     use HasFactory;
 
-    protected $table = 'plan';
+    protected $table = 'plans';
 
     protected $fillable = [
         'name',

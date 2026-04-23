@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('react', function (Blueprint $table) {
+        Schema::create('reacts', function (Blueprint $table) {
             $table->id();
             $table->boolean('is_like');
-            $table->foreignId('blog_id')->constrained('blog')->cascadeOnDelete();
+            $table->foreignId('blog_id')->constrained('blogs')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('react');
+        Schema::dropIfExists('reacts');
     }
 };
