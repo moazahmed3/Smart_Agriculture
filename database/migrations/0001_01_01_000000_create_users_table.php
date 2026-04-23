@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('img')->nullable();
             $table->string('role')->nullable();
             $table->string('google_id')->nullable()->unique();
+            $table->boolean('registration_completed')->default(true);
             $table->foreignId('engineer_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->rememberToken();
             $table->timestamps();
