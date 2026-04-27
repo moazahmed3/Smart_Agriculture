@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\WeatherResource;
 use App\Http\Traits\ApiTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -12,32 +13,27 @@ class WeatherController extends Controller
 
     public function getForecast(Request $request)
     {
-        // 1. التحقق من المدخلات: إما اسم مدينة، أو إحداثيات (طول وعرض)
         $request->validate([
             'city' => 'nullable|string',
             'lat' => 'nullable|numeric',
             'lon' => 'nullable|numeric',
         ]);
 
-        // 2. إعداد بيانات الـ API
         $apiKey = env('OPENWEATHER_API_KEY');
         $baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
-        // المعاملات الأساسية (عربي + سيليزيوس)
         $queryParams = [
             'appid' => $apiKey,
             'units' => 'metric',
             'lang' => 'en',
         ];
-        // dd($request->all());
-        // 3. تحديد طريقة البحث بناءً على البيانات المبعوتة
+
         if ($request->has('lat') && $request->has('lon')) {
             $queryParams['lat'] = $request->lat;
             $queryParams['lon'] = $request->lon;
         } elseif ($request->has('city')) {
             $queryParams['q'] = $request->city;
         } else {
-            // لو الفرونت إند مبعتش أي حاجة خالص
             return $this->errorResponse(
                 ['location' => ['يرجى إرسال اسم المدينة أو الإحداثيات']],
                 'Location missing',
@@ -46,7 +42,6 @@ class WeatherController extends Controller
         }
 
         try {
-            // 4. إرسال الطلب لـ OpenWeatherMap
             $response = Http::get($baseUrl, $queryParams);
 
             if ($response->failed()) {
@@ -56,10 +51,8 @@ class WeatherController extends Controller
                     $response->status()
                 );
             }
-
-            // 5. إرجاع البيانات بنجاح باستخدام الـ Trait بتاعك
             return $this->dataResponse(
-                $response->json(),
+                new WeatherResource($response->json()),
                 'Weather data retrieved successfully'
             );
 

@@ -49,8 +49,10 @@ class ProfileController extends Controller
         // Handle image upload if provided
         if ($request->has('img')) {
             $oldName = User::find($user->id)->img;
-            $path = public_path('img/Profile/' . $oldName);
-            $this->deletePhoto($path);
+            if ($oldName) {
+                $path = public_path('img/Profile/' . $oldName);
+                $this->deletePhoto($path);
+            }
             $img = $this->uploadPhoto($request->img, 'Profile');
             $validated['img'] = $img;
         }

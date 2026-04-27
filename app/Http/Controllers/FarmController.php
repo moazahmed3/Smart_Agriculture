@@ -31,7 +31,7 @@ class FarmController extends Controller
             ->get();
 
         return $this->dataResponse(
-            compact('farms'),
+            FarmResource::collection($farms),
             'Farms retrieved successfully'
         );
     }
@@ -109,7 +109,7 @@ class FarmController extends Controller
         $farm->update($validated);
 
         return $this->dataResponse(
-            compact('farm'),
+             new FarmResource($farm),
             'Farm updated successfully'
         );
     }
