@@ -22,6 +22,7 @@ class PublicProfileResource extends JsonResource
         'email' => $this->email,
         'phone'=>$this->phone,
         'handle'=>$this->handle,
+        "img" => url('img/Profile/'.$this->img),
         'role'=>$this->role,
         'farms' => $this->whenLoaded('farms'),
         'blogs' => AllBlogsResource::collection($this->whenLoaded('blogs')),
